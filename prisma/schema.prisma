@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Connection to PostgreSQL database
+// Set DATABASE_URL in a .env file
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Image {
+  id      Int       @id @default(autoincrement())
+  url     String
+  User    User[]
+  Project Project[]
+  Entry   Entry[]
+
+  @@map("images") // Mapping it to another name
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  img          Image?    @relation(fields: [img_id], references: [id])
+  img_id       Int?
+  display_name String?
+  uuid         String    @unique
+  Project      Project[]
+  Entry        Entry[]
+
+  @@map("users")
+}
+
+model Project {
+  id           Int      @id @default(autoincrement())
+  title        String?
+  description  String?
+  img          Image?   @relation(fields: [img_id], references: [id])
+  img_id       Int?
+  user         User     @relation(fields: [user_id], references: [id])
+  user_id      Int
+  updated_date DateTime @default(now())
+  Entry        Entry[]
+
+  @@map("projects")
+}
+
+model Entry {
+  id           Int      @id @default(autoincrement())
+  description  String?
+  img          Image?   @relation(fields: [img_id], references: [id])
+  img_id       Int?
+  project      Project  @relation(fields: [project_id], references: [id])
+  project_id   Int
+  user         User     @relation(fields: [user_id], references: [id])
+  user_id      Int
+  created_date DateTime @default(now())
+
+  @@map("entries")
+}
