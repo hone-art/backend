@@ -20,8 +20,8 @@ app.use("/images", images);
 app.use("/projects", projects);
 app.use("/users", users);
 
-app.get("/", () => {
-  console.log("Hello, World!");
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
 });
 
 // start the Express server
