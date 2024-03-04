@@ -21,8 +21,8 @@ app.use("/projects", projects);
 app.use("/users", users);
 
 app.get("/", () => {
-  console.log("Hello, World!")
-})
+  console.log("Hello, World!");
+});
 
 // start the Express server
 app.listen(PORT, () => {
