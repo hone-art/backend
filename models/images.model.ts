@@ -1,13 +1,25 @@
 import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
+interface Image {
+  url: string
+}
+
 const imagesModel = {
-  getById: async function () {
-    // WRITE CODE TO GET AN IMAAGE IN DATABASE BY ID
+  getById: async function (id: number) {
+    const image = await prisma.image.findUnique({
+      where: { id: id, },
+    });
+
+    return image;
   },
 
-  create: async function () {
-    // WRITE CODE TO CREATE NEW IMAGE IN DATABASE
+  create: async function (entry: Image) {
+    const newImage = await prisma.image.create({
+      data: entry,
+    });
+
+    return newImage;
   }
 
 }
