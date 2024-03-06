@@ -9,10 +9,10 @@ const usersController = {
     // SEND RESPONSE
   },
 
-  create: async function () {
-    // CODE PARSING REQUEST BODY
-    // MAYBE VALIDATION?
-    const newUser = usersModel.create();
+  create: async function (req: Request, res: Response) {
+    // const userData : = req.body;
+    // const newUser = usersModel.create(userData);
+    // res.send(newUser);
     // SEND RESPONSE
   },
 
