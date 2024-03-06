@@ -1,6 +1,13 @@
 import usersModel from "../models/users.model";
 import { Request, Response } from "express";
 
+interface User {
+  user_name: string;
+  uuid: string;
+  img_id?: number;
+  display_name?: string;
+}
+
 const usersController = {
 
   getById: async function (req: Request, res: Response) {
@@ -14,9 +21,13 @@ const usersController = {
   },
 
   create: async function (req: Request, res: Response) {
-    const userData = req.body;
-    const newUser = usersModel.create(userData);
-    res.send(newUser);
+    try {
+      const userData: User = req.body;
+      const newUser = await usersModel.create(userData);
+      res.send(newUser);
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   update: async function (req: Request, res: Response) {
@@ -29,6 +40,6 @@ const usersController = {
       console.log(e);
     }
   },
-  
+
 }
 export default usersController;
