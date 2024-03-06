@@ -1,6 +1,13 @@
 import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
+interface User {
+img_id?: number,
+display_name?: string,
+  user_name: string,
+  uuid: string,
+}
+
 const usersModel = {
   getById: async function (userId: number) {
     // WRITE CODE TO GET A USER IN DATABASE BY ID
@@ -12,17 +19,13 @@ const usersModel = {
       return user;
     },
 
-  create: async function (userData: object) {
+  create: async function (userData: User) {
     // WRITE CODE TO CREATE NEW USER IN DATABASE
     // const newUser = await prisma.user.create({ data: { userData } });
     // return newUser;
       try {
         const newUser = await prisma.user.create({
-          data: {
-            user_name: 'Bob',
-            display_name: 'AwesomeBob',
-            uuid: 'GreatBob'
-          },
+          data: userData,
         });
         console.log('Successfully created user:', newUser);
         return newUser;
