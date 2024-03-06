@@ -10,10 +10,10 @@ interface User {
 
 const usersController = {
 
-  getById: async function (req: Request, res: Response) {
+  getByUuid: async function (req: Request, res: Response) {
     try {
-      const id: number = parseInt(req.params.id);
-      const user = await usersModel.getById(id);
+      const uuid: string = req.params.uuid;
+      const user = await usersModel.getByUuid(uuid);
       res.status(200).send(user);
     } catch (e) {
       console.log(e);
