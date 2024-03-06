@@ -28,7 +28,7 @@ const projectsModel = {
     return newProject;
   },
 
-  update: async function (id: number, data: any) {
+  update: async function (id: number, data: object) {
     // WRITE CODE TO UPDATE AN PROJECT IN DATABASE BY ID
     const updatedProject = await prisma.project.update({
       where: {
