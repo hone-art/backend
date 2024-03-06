@@ -14,10 +14,27 @@ const usersModel = {
 
   create: async function (userData: object) {
     // WRITE CODE TO CREATE NEW USER IN DATABASE
-    const newUser = await prisma.user.create({ data: { userData } });
-    return newUser;
+    // const newUser = await prisma.user.create({ data: { userData } });
+    // return newUser;
+      try {
+        const newUser = await prisma.user.create({
+          data: {
+            user_name: 'Bob',
+            display_name: 'AwesomeBob',
+            uuid: 'GreatBob'
+          },
+        });
+        console.log('Successfully created user:', newUser);
+        return newUser;
+      } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+      } finally {
+        await prisma.$disconnect();
+      }
+    },
   
-  },
+ 
 
   update: async function (userId: number, updateData: object) {
     // WRITE CODE TO UPDATE A USER IN DATABASE BY ID
@@ -37,6 +54,5 @@ const usersModel = {
     }
 
   }
-
 
 export default usersModel;
