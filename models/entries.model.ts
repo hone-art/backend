@@ -1,25 +1,58 @@
 import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
+interface Entry {
+  description: string | null;
+  img_id: number | null;
+  user_id: number;
+  project_id: number;
+  created_date: Date;
+}
+
 const entriesModel = {
-  getById: async function () {
-    // WRITE CODE TO GET AN ENTRY IN DATABASE BY ID
+  getById: async function (id: number) {
+    const entry = await prisma.entry.findUnique({
+      where: { id: id, },
+    });
+
+    return entry;
   },
 
-  create: async function () {
-    // WRITE CODE TO CREATE NEW ENTRY IN DATABASE
+  create: async function (entry: Entry) {
+    const newEntry = await prisma.entry.create({
+      data: entry,
+    });
+
+    return newEntry;
   },
 
-  update: async function () {
-    // WRITE CODE TO UPDATE AN ENTRY IN DATABASE BY ID
+  update: async function (id: number, data: object) {
+    const updatedEntry = await prisma.entry.update({
+      where: {
+        id: id,
+      },
+      data: data,
+    });
+
+    return updatedEntry;
   },
 
-  delete: async function () {
-    // WRITE CODE TO DELETE AN ENTRY IN DATABASE BY ID
+  delete: async function (id: number) {
+    const deleteEntry = await prisma.entry.delete({
+      where: {
+        id: id,
+      },
+    });
   },
 
-  getByProjectId: async function () {
-    // WRITE CODE TO GET ENTRIES IN THE DATABASE BY ID
+  getByProjectId: async function (projectId: number) {
+    const entries = await prisma.entry.findMany({
+      where: {
+        project_id: projectId,
+      },
+    });
+
+    return entries;
   }
 }
 
