@@ -11,7 +11,6 @@ type Project = {
 
 const projectsModel = {
   getById: async function (id: number) {
-    // WRITE CODE TO GET A PROJECT IN DATABASE BY ID
     const project = await prisma.project.findUnique({
       where: { id: id, },
     });
@@ -20,7 +19,6 @@ const projectsModel = {
   },
 
   create: async function (project: Project) {
-    // WRITE CODE TO CREATE NEW PROJECT IN DATABASE
     const newProject = await prisma.project.create({
       data: project,
     });
@@ -29,7 +27,6 @@ const projectsModel = {
   },
 
   update: async function (id: number, data: object) {
-    // WRITE CODE TO UPDATE AN PROJECT IN DATABASE BY ID
     const updatedProject = await prisma.project.update({
       where: {
         id: id,
@@ -41,7 +38,7 @@ const projectsModel = {
   },
 
   delete: async function (id: number) {
-    // WRITE CODE TO DELETE AN PROJECT IN DATABASE BY ID
+    // Delete all entries with project id
     const deleteEntries = await prisma.entry.deleteMany({
       where: {
         project_id: id,
@@ -56,7 +53,6 @@ const projectsModel = {
   },
 
   getByUserId: async function (userId: number) {
-    // WRITE CODE TO GET PROJECTS IN THE DATABASE BY USER ID
     const projects = await prisma.project.findMany({
       where: {
         user_id: userId,

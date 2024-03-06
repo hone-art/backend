@@ -1,17 +1,12 @@
 import projectsModel from "../models/projects.model";
 import { Request, Response } from "express";
 
-interface Project {
-  title?: string | null;
-  description?: string | null;
-  img_id?: number | null;
-  user_id: number;
-  // updated_date: Date;
-}
-
-// interface ResponseBody { }
-
-// interface RequestBody { }
+// interface Project {
+//   title?: string | null;
+//   description?: string | null;
+//   img_id?: number | null;
+//   user_id: number;
+// }
 
 const projectsController = {
   getById: async function (req: Request, res: Response) {

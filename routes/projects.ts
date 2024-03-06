@@ -4,10 +4,10 @@ import projectsController from "../controllers/projects.controller";
 const router = express.Router();
 
 // PROJECT ROUTES
-router.get("/:id", projectsController.getById);
-router.post("/", projectsController.create);
-router.patch("/:id", projectsController.update);
-router.delete("/:id", projectsController.delete);
-router.get("/users/:userId", projectsController.getByUserId);
+router.get("/:id", projectsController.getById); // Get project by id
+router.post("/", projectsController.create); // Create new project
+router.patch("/:id", projectsController.update); // Update project
+router.delete("/:id", projectsController.delete); // Delete project and related entries
+router.get("/users/:userId", projectsController.getByUserId); // Get project by user id
 
 export default router;
