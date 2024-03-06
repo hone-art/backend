@@ -2,8 +2,6 @@ import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 interface User {
-img_id?: number,
-display_name?: string,
   user_name: string,
   uuid: string,
 }
