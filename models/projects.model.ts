@@ -1,25 +1,65 @@
 import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
+type Project = {
+  title: string | null;
+  description: string | null;
+  img_id: number | null;
+  user_id: number;
+  updated_date: Date;
+}
+
 const projectsModel = {
-  getById: async function () {
-    // WRITE CODE TO GET A PROJECT IN DATABASE BY ID
+  getById: async function (id: number) {
+    const project = await prisma.project.findUnique({
+      where: { id: id, },
+    });
+
+    return project;
   },
 
-  create: async function () {
-    // WRITE CODE TO CREATE NEW PROJECT IN DATABASE
+  create: async function (project: Project) {
+    const newProject = await prisma.project.create({
+      data: project,
+    });
+
+    return newProject;
   },
 
-  update: async function () {
-    // WRITE CODE TO UPDATE AN PROJECT IN DATABASE BY ID
+  update: async function (id: number, data: object) {
+    const updatedProject = await prisma.project.update({
+      where: {
+        id: id,
+      },
+      data: data,
+    })
+
+    return updatedProject;
   },
 
-  delete: async function () {
-    // WRITE CODE TO DELETE AN PROJECT IN DATABASE BY ID
+  delete: async function (id: number) {
+    // Delete all entries with project id
+    const deleteEntries = await prisma.entry.deleteMany({
+      where: {
+        project_id: id,
+      },
+    });
+
+    const deleteProject = await prisma.project.delete({
+      where: {
+        id: id,
+      },
+    });
   },
 
-  getByUserId: async function () {
-    // WRITE CODE TO GET PROJECTS IN THE DATABASE BY USER ID
+  getByUserId: async function (userId: number) {
+    const projects = await prisma.project.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    return projects;
   }
 
 }
