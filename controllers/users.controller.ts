@@ -20,6 +20,17 @@ const usersController = {
     }
   },
 
+  getByUsername: async function (req: Request, res: Response) {
+    try {
+      const user_name: string = req.body.user_name;
+      const user = await usersModel.getByUsername(user_name);
+      if (user == null) res.status(400).send("no user found");
+      else res.status(200).send(user);
+    } catch (e) {
+      console.log(e);
+    }
+  },
+
   create: async function (req: Request, res: Response) {
     try {
       const userData: User = req.body;
