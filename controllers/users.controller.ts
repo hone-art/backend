@@ -24,7 +24,8 @@ const usersController = {
     try {
       const user_name: string = req.body.user_name;
       const user = await usersModel.getByUsername(user_name);
-      res.status(200).send(user);
+      if (user == null) res.status(400).send("no user found");
+      else res.status(200).send(user);
     } catch (e) {
       console.log(e);
     }
