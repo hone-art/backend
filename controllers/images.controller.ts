@@ -14,6 +14,7 @@ const imagesController = {
       res.status(200).send(project);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -24,6 +25,7 @@ const imagesController = {
       res.status(200).send(newProject);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   }
 }

@@ -18,6 +18,7 @@ const entriesController = {
       res.status(200).send(entry);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -29,6 +30,7 @@ const entriesController = {
       res.status(200).send(newEntry);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -40,6 +42,7 @@ const entriesController = {
       res.status(200).send(updatedEntry);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -50,6 +53,7 @@ const entriesController = {
       res.status(200).send("Entry deleted");
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -60,6 +64,7 @@ const entriesController = {
       res.status(200).send(entries);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   }
 }

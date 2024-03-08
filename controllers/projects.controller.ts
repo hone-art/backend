@@ -16,6 +16,7 @@ const projectsController = {
       res.status(200).send(project);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -27,6 +28,7 @@ const projectsController = {
       res.status(200).send(newProject);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -39,6 +41,7 @@ const projectsController = {
       res.status(200).send(updatedProject);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -49,6 +52,7 @@ const projectsController = {
       res.status(200).send("Project deleted");
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -59,6 +63,7 @@ const projectsController = {
       res.status(200).send(projects);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   }
 }
