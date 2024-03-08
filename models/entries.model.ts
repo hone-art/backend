@@ -50,6 +50,7 @@ const entriesModel = {
       where: {
         project_id: projectId,
       },
+      orderBy: { "created_date": "desc" }
     });
 
     return entries;
