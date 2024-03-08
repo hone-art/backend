@@ -17,6 +17,7 @@ const usersController = {
       res.status(200).send(user);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -28,6 +29,7 @@ const usersController = {
       else res.status(200).send(user);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -35,9 +37,10 @@ const usersController = {
     try {
       const userData: User = req.body;
       const newUser = await usersModel.create(userData);
-      res.send(newUser);
+      res.status(200).send(newUser);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
@@ -49,6 +52,7 @@ const usersController = {
       res.status(200).send(updatedUser);
     } catch (e) {
       console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 
