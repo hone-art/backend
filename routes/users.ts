@@ -7,5 +7,6 @@ const router = express.Router();
 router.get("/:uuid", usersController.getByUuid);
 router.patch("/:id", usersController.update);
 router.post("/", usersController.create);
+router.post("/username", usersController.getByUsername)
 
 export default router;

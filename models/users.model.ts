@@ -10,10 +10,18 @@ interface User {
 
 const usersModel = {
   getByUuid: async function (uuid: string) {
-    // WRITE CODE TO GET A USER IN DATABASE BY ID
     const user = await prisma.user.findUnique({
       where: {
         uuid: uuid,
+      },
+    });
+    return user;
+  },
+
+  getByUsername: async function (user_name: string) {
+    const user = await prisma.user.findUnique({
+      where: {
+        user_name: user_name,
       },
     });
     return user;

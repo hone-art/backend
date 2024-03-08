@@ -57,6 +57,7 @@ const projectsModel = {
       where: {
         user_id: userId,
       },
+      orderBy: { "updated_date": "desc" }
     });
 
     return projects;
