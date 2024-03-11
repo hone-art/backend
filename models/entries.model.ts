@@ -61,7 +61,28 @@ const entriesModel = {
       where: {
         user_id: userId,
       },
-      orderBy: { "created_date": "desc"}
+      orderBy: { "created_date": "desc" }
+    });
+    return entries;
+  },
+
+  getByUserIdAndDate: async function (userId: number, dateStr: string) {
+    const startDate = new Date(dateStr + 'T00:00:00.000Z');
+    console.log("startTime--------------", startDate);
+    const endDate = new Date(startDate);
+    endDate.setDate(startDate.getDate() + 1);
+    console.log("endTime----------------", endDate);
+
+    const entries = await prisma.entry.findMany({
+      where: {
+        user_id: userId,
+        // created_date: date
+        created_date: {
+          gte: startDate,
+          lt: endDate,
+        },
+      },
+      orderBy: { 'created_date': "desc" }
     });
     return entries;
   }

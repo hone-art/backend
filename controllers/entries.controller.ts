@@ -72,12 +72,26 @@ const entriesController = {
     try {
       const userId: number = parseInt(req.params.userId);
       const entries = await entriesModel.getByUserId(userId);
+      console.log(typeof entries[0].created_date);
       res.status(200).send(entries);
     } catch (e) {
       console.log(e);
-      res.status(400).send("Bac request");
+      res.status(400).send("Bad request");
     }
-  }
+  },
+
+  getByUserIdAndDate: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const dateStr: string = req.params.date;
+      console.log(dateStr)
+      const entries = await entriesModel.getByUserIdAndDate(userId, dateStr);
+      res.status(200).send(entries);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
+  },
 }
 
 export default entriesController;
