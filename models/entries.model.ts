@@ -54,6 +54,16 @@ const entriesModel = {
     });
 
     return entries;
+  },
+
+  getByUserId: async function (userId: number) {
+    const entries = await prisma.entry.findMany({
+      where: {
+        user_id: userId,
+      },
+      orderBy: { "created_date": "desc"}
+    });
+    return entries;
   }
 }
 

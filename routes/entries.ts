@@ -9,5 +9,6 @@ router.post("/", entriesController.create);
 router.patch("/:id", entriesController.update);
 router.delete("/:id", entriesController.delete);
 router.get("/projects/:projectId", entriesController.getByProjectId);
+router.get("/users/:userId", entriesController.getByUserId);
 
 export default router;

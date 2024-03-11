@@ -66,6 +66,17 @@ const entriesController = {
       console.log(e);
       res.status(400).send("Bad request");
     }
+  },
+
+  getByUserId: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const entries = await entriesModel.getByUserId(userId);
+      res.status(200).send(entries);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bac request");
+    }
   }
 }
 
