@@ -120,7 +120,7 @@ const entriesModel = {
           lt: endTimeUTC,
         },
       },
-      orderBy: { 'created_date': "desc" }
+      orderBy: { 'created_date': "asc" }
     });
 
     return entries;
