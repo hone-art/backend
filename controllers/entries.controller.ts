@@ -26,6 +26,7 @@ const entriesController = {
     try {
       const newEntryToInsert = req.body;
       newEntryToInsert["created_date"] = new Date();
+      console.log(newEntryToInsert);
       const newEntry = await entriesModel.create(newEntryToInsert);
       res.status(200).send(newEntry);
     } catch (e) {
@@ -84,7 +85,6 @@ const entriesController = {
     try {
       const userId: number = parseInt(req.params.userId);
       const dateStr: string = req.params.date;
-      console.log(dateStr)
       const entries = await entriesModel.getByUserIdAndDate(userId, dateStr);
       res.status(200).send(entries);
     } catch (e) {
