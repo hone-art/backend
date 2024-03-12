@@ -92,6 +92,10 @@ const entriesModel = {
       orderBy: { 'created_date': "desc" }
     });
     return entries;
+  },
+
+  getByUserIdAndMonth: async function(userId: number, monthStr: string) {
+    return;
   }
 }
 

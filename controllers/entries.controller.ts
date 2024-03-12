@@ -92,6 +92,14 @@ const entriesController = {
       res.status(400).send("Bad request");
     }
   },
+
+  getByUserIdAndMonth: async function(req: Request, Res: Response) {
+    try {
+
+    } catch{
+
+    }
+  },
 }
 
 export default entriesController;
