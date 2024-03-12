@@ -1,5 +1,6 @@
 import entriesModel from "../models/entries.model";
 import { Request, Response } from "express";
+import { generateOneMonthContributions } from '../utils/generateOneMonthContributions'
 
 // interface Entry {
 //   description: string | null;
@@ -73,6 +74,7 @@ const entriesController = {
     try {
       const userId: number = parseInt(req.params.userId);
       const entries = await entriesModel.getByUserId(userId);
+      console.log(entries);
       console.log(typeof entries[0].created_date);
       res.status(200).send(entries);
     } catch (e) {
@@ -93,11 +95,16 @@ const entriesController = {
     }
   },
 
-  getByUserIdAndMonth: async function(req: Request, Res: Response) {
+  getByUserIdAndMonth: async function(req: Request, res: Response) {
     try {
-
-    } catch{
-
+      const userId: number = parseInt(req.params.userId);
+      const monthStr: string = req.params.month;
+      const entries = await entriesModel.getByUserIdAndMonth(userId, monthStr);
+      // const oneMonthContributions = generateOneMonthContributions(entries);
+      // res.status(200).send(oneMonthContributions);
+    } catch (e){
+      console.log(e);
+      res.status(400).send("Bad request");
     }
   },
 }
