@@ -1,5 +1,7 @@
 import { Prisma, PrismaClient } from '@prisma/client'
+import { getDaysInMonth } from '../utils/getDaysInMonth'
 const prisma = new PrismaClient()
+
 
 interface Entry {
   description: string | null;
@@ -67,23 +69,60 @@ const entriesModel = {
   },
 
   getByUserIdAndDate: async function (userId: number, dateStr: string) {
-    const startDate = new Date(dateStr + 'T00:00:00.000Z');
-    console.log("startTime--------------", startDate);
-    const endDate = new Date(startDate);
-    endDate.setDate(startDate.getDate() + 1);
-    console.log("endTime----------------", endDate);
+    console.log(dateStr);
+    const startTimeLocal = new Date(dateStr);
+    console.log("start time in Local--------------", startTimeLocal);
+
+    const startTimeUTC = new Date(startTimeLocal);
+    startTimeUTC.setHours(startTimeLocal.getHours() -9);
+    console.log("start time in UTC==============", startTimeUTC);
+
+    const endTimeUTC = new Date(startTimeUTC);
+    endTimeUTC.setDate(startTimeUTC.getDate() + 1);
+    console.log("end time in UTC==============", endTimeUTC);
+
 
     const entries = await prisma.entry.findMany({
       where: {
         user_id: userId,
         // created_date: date
         created_date: {
-          gte: startDate,
-          lt: endDate,
+          gte: startTimeUTC,
+          lt: endTimeUTC,
         },
       },
       orderBy: { 'created_date': "desc" }
     });
+    return entries;
+  },
+
+  getByUserIdAndMonth: async function(userId: number, monthStr: string) {
+    console.log(monthStr);
+    const numberOfDays = getDaysInMonth(monthStr);
+
+    const startTimeLocal = new Date(monthStr);
+    console.log("start time in Local--------------",startTimeLocal);
+
+    const startTimeUTC = new Date(startTimeLocal);
+    startTimeUTC.setHours(startTimeLocal.getHours() -9);
+    console.log("start time in UTC==============", startTimeUTC);
+
+    const endTimeUTC = new Date(startTimeUTC);
+    endTimeUTC.setDate(startTimeUTC.getDate() + numberOfDays);
+    console.log("end time in UTC==============", endTimeUTC);
+
+    const entries = await prisma.entry.findMany({
+      where: {
+        user_id: userId,
+        // created_date: date
+        created_date: {
+          gte: startTimeUTC,
+          lt: endTimeUTC,
+        },
+      },
+      orderBy: { 'created_date': "asc" }
+    });
+
     return entries;
   }
 }

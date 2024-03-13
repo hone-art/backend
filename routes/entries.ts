@@ -11,5 +11,6 @@ router.delete("/:id", entriesController.delete);
 router.get("/projects/:projectId", entriesController.getByProjectId);
 router.get("/users/:userId", entriesController.getByUserId);
 router.get("/users/:userId/:date", entriesController.getByUserIdAndDate);
+router.get("/users/:userId/months/:month", entriesController.getByUserIdAndMonth);
 
 export default router;
