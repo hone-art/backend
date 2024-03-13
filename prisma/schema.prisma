@@ -40,6 +40,8 @@ model Project {
   img_id       Int?
   user_id      Int
   updated_date DateTime @default(now())
+  isPublic     Boolean
+  isCommentsOn Boolean
   Entry        Entry[]
   img          Image?   @relation(fields: [img_id], references: [id])
   user         User     @relation(fields: [user_id], references: [id])

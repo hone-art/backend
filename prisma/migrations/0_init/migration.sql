@@ -26,6 +26,8 @@ CREATE TABLE "projects" (
     "img_id" INTEGER,
     "user_id" INTEGER NOT NULL,
     "updated_date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "isPublic" BOOLEAN NOT NULL,
+    "isCommentsOn" BOOLEAN NOT NULL,
 
     CONSTRAINT "projects_pkey" PRIMARY KEY ("id")
 );
