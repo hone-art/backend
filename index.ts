@@ -1,3 +1,7 @@
+//for jest
+//import dbInit from './db/init'
+
+
 import express from 'express'
 import cors from "cors";
 
@@ -25,6 +29,10 @@ app.get("/", (req, res) => {
 });
 
 // start the Express server
+if(process.env.NODE_ENV !== "test") {
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
+}
+
+export default app;
