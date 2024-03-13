@@ -29,7 +29,6 @@ const entriesController = {
     try {
       const newEntryToInsert = req.body;
       newEntryToInsert["created_date"] = new Date();
-      console.log(newEntryToInsert);
       const newEntry = await entriesModel.create(newEntryToInsert);
       res.status(200).send(newEntry);
     } catch (e) {
@@ -76,8 +75,6 @@ const entriesController = {
     try {
       const userId: number = parseInt(req.params.userId);
       const entries = await entriesModel.getByUserId(userId);
-      console.log(entries);
-      console.log(typeof entries[0].created_date);
       res.status(200).send(entries);
     } catch (e) {
       console.log(e);
@@ -97,7 +94,7 @@ const entriesController = {
     }
   },
 
-  getByUserIdAndMonth: async function(req: Request, res: Response) {
+  getByUserIdAndMonth: async function (req: Request, res: Response) {
     try {
       const userId: number = parseInt(req.params.userId);
       const monthStr: string = req.params.month;
@@ -106,7 +103,7 @@ const entriesController = {
       const entries: Entry[] = await entriesModel.getByUserIdAndMonth(userId, monthStr);
       const oneMonthContributions = generateOneMonthContributions(numberOfDays, entries);
       res.status(200).send(oneMonthContributions);
-    } catch (e){
+    } catch (e) {
       console.log(e);
       res.status(400).send("Bad request");
     }
