@@ -1,0 +1,48 @@
+import commentsModel from "../models/comments.model";
+import { Request, Response } from "express";
+
+type Comment = {
+  id: number;
+  description: string | null;
+  user_id: number;
+  entry_id: number | null;
+}
+
+const commentsController = {
+
+  create: async function (req: Request, res: Response) {
+    try {
+      const newCommentToInsert = req.body;
+      newCommentToInsert["created_date"] = new Date();
+      const newComment = await commentsModel.create(newCommentToInsert);
+      res.status(200).send(newComment);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
+  },
+
+  delete: async function (req: Request, res: Response) {
+    try {
+      const id: number = parseInt(req.params.id);
+      const deletedProject = await commentsModel.delete(id);
+      res.status(200).send("Comment deleted");
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
+  },
+
+  getByEntryId: async function (req: Request, res: Response) {
+    try {
+      const entryId: number = parseInt(req.params.entryId);
+      const entries = await commentsModel.getByEntryId(entryId);
+      res.status(200).send(entries);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
+  },
+}
+
+export default commentsController;
