@@ -8,6 +8,7 @@ import entries from "./routes/entries";
 import images from "./routes/images";
 import projects from "./routes/projects";
 import users from "./routes/users";
+import comments from "./routes/comments";
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -19,6 +20,7 @@ app.use("/entries", entries);
 app.use("/images", images);
 app.use("/projects", projects);
 app.use("/users", users);
+app.use("/comments", comments);
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
