@@ -2,17 +2,16 @@ import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient();
 
 interface Comment {
-    id: number;
-    description: string | null;
+    description: string;
     user_id: number;
-    entry_id: number | null;
+    entry_id: number;
   }
 
 const commentsModel = {
 
   create: async function (comment: Comment) {
     const newComment = await prisma.comment.create({
-      description: comment,
+      data: comment,
     });
 
     return newComment;
@@ -32,7 +31,6 @@ const commentsModel = {
       where: {
         entry_id: entryId,
       },
-      //orderBy: { "created_date": "desc" }
     });
 
     return comments;

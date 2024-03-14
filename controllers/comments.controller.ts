@@ -2,10 +2,9 @@ import commentsModel from "../models/comments.model"
 import { Request, Response } from "express";
 
 type Comment = {
-  id: number;
-  description: string | null;
+  description: string;
   user_id: number;
-  entry_id: number | null;
+  entry_id: number;
 }
 
 const commentsController = {
@@ -25,7 +24,7 @@ const commentsController = {
   delete: async function (req: Request, res: Response) {
     try {
       const id: number = parseInt(req.params.id);
-      const deletedProject = await commentsModel.delete(id);
+      const deletedComment = await commentsModel.delete(id);
       res.status(200).send("Comment deleted");
     } catch (e) {
       console.log(e);
@@ -36,8 +35,8 @@ const commentsController = {
   getByEntryId: async function (req: Request, res: Response) {
     try {
       const entryId: number = parseInt(req.params.entryId);
-      const entries = await commentsModel.getByEntryId(entryId);
-      res.status(200).send(entries);
+      const comments = await commentsModel.getByEntryId(entryId);
+      res.status(200).send(comments);
     } catch (e) {
       console.log(e);
       res.status(400).send("Bad request");
