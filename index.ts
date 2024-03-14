@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 
 const corsOptions: CorsOptions = {
-  origin: ["http://localhost:5173", "https://www.hone-art.space/"],
+  origin: ["http://localhost:5173", "https://www.hone-art.space"],
   credentials: true,
 };
 
