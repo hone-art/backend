@@ -8,11 +8,11 @@ interface Comment {
     entry_id: number | null;
   }
 
-const entriesModel = {
+const commentsModel = {
 
   create: async function (comment: Comment) {
     const newComment = await prisma.comment.create({
-      data: comment,
+      description: comment,
     });
 
     return newComment;
@@ -32,7 +32,7 @@ const entriesModel = {
       where: {
         entry_id: entryId,
       },
-      orderBy: { "created_date": "desc" }
+      //orderBy: { "created_date": "desc" }
     });
 
     return comments;
