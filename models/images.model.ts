@@ -2,8 +2,8 @@ import { Prisma, PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 interface Image {
-  url: string,
-  filePath: string,
+  url: string;
+  filePath: string;
 }
 
 const imagesModel = {
