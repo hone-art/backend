@@ -55,7 +55,7 @@ const usersController = {
       const userData: User = req.body;
       const newUser = await usersModel.create(userData);
 
-      const token = jwt.sign({ id: newUser?.id, user_name: newUser?.user_name, uuid: newUser?.uuid, image_id: newUser?.img_id, display_name: newUser?.display_name }, SECRET_KEY as string, {
+      const token = jwt.sign({ id: newUser?.id, user_name: newUser?.user_name, uuid: newUser?.uuid, img_id: newUser!.img_id, display_name: newUser!.display_name }, SECRET_KEY as string, {
         expiresIn: '24hr',
       });
 
