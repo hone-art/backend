@@ -65,6 +65,17 @@ const projectsController = {
       console.log(e);
       res.status(400).send("Bad request");
     }
+  },
+
+  getByUserIdAndVisibility: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const projects = await projectsModel.getByUserIdAndVisibility(userId);
+      res.status(200).send(projects);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
   }
 }
 

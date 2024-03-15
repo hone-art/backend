@@ -2,7 +2,8 @@ import imagesModel from "../models/images.model";
 import { Request, Response } from "express";
 
 interface Image {
-  url: string
+  url: string;
+  filePath: string;
 }
 
 const imagesController = {

@@ -7,6 +7,8 @@ type Project = {
   img_id: number | null;
   user_id: number;
   updated_date: Date;
+  isPublic: boolean;
+  isCommentsOn: boolean;
 }
 
 const projectsModel = {
@@ -56,6 +58,18 @@ const projectsModel = {
     const projects = await prisma.project.findMany({
       where: {
         user_id: userId,
+      },
+      orderBy: { "updated_date": "desc" }
+    });
+
+    return projects;
+  },
+
+  getByUserIdAndVisibility: async function (userId: number) {
+    const projects = await prisma.project.findMany({
+      where: {
+        user_id: userId,
+        isPublic: true,
       },
       orderBy: { "updated_date": "desc" }
     });
