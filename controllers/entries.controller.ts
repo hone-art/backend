@@ -1,13 +1,16 @@
 import entriesModel from "../models/entries.model";
 import { Request, Response } from "express";
+import { generateOneMonthContributions } from '../utils/generateOneMonthContributions'
+import { getDaysInMonth } from '../utils/getDaysInMonth'
 
-// interface Entry {
-//   description: string | null;
-//   img_id: number | null;
-//   user_id: number;
-//   project_id: number;
-//   // created_date: Date | null;
-// }
+type Entry = {
+  id: number;
+  description: string | null;
+  img_id: number | null;
+  project_id: number;
+  user_id: number;
+  created_date: Date;
+}
 
 const entriesController = {
 
@@ -66,7 +69,45 @@ const entriesController = {
       console.log(e);
       res.status(400).send("Bad request");
     }
-  }
+  },
+
+  getByUserId: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const entries = await entriesModel.getByUserId(userId);
+      res.status(200).send(entries);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
+  },
+
+  getByUserIdAndDate: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const dateStr: string = req.params.date;
+      const entries = await entriesModel.getByUserIdAndDate(userId, dateStr);
+      res.status(200).send(entries);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
+  },
+
+  getByUserIdAndMonth: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const monthStr: string = req.params.month;
+      const numberOfDays: number = getDaysInMonth(monthStr);
+
+      const entries: Entry[] = await entriesModel.getByUserIdAndMonth(userId, monthStr);
+      const oneMonthContributions = generateOneMonthContributions(numberOfDays, entries);
+      res.status(200).send(oneMonthContributions);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
+  },
 }
 
 export default entriesController;

@@ -7,8 +7,8 @@ type Project = {
   img_id: number | null;
   user_id: number;
   updated_date: Date;
-  isPublic: boolean;
   isCommentsOn: boolean;
+  isPublic: boolean;
 }
 
 const projectsModel = {

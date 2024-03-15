@@ -28,6 +28,17 @@ const imagesController = {
       console.log(e);
       res.status(400).send("Bad request");
     }
+  },
+
+  delete: async function (req: Request, res: Response) {
+    try {
+      const imageId: number = parseInt(req.params.id);
+      await imagesModel.delete(imageId);
+      res.status(200).send("Image deleted!");
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
   }
 }
 
