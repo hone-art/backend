@@ -8,7 +8,7 @@ type entry ={
     created_date: Date;
 }
 
-export function generateAllDayArray(entries: entry[], today: Date) {
+export function generateAllDaysArray(entries: entry[], today: Date): number[] {
     let startTimeUTC = new Date(today);
     startTimeUTC.setHours(today.getHours() - 9);
     // console.log("startTimeUTC=======",startTimeUTC);
@@ -18,10 +18,10 @@ export function generateAllDayArray(entries: entry[], today: Date) {
     // console.log("check date comparism========", entries[0].created_date > startTimeUTC && entries[0].created_date< endTimeUTC);
     let allDayArray: number[] = [0];
     for (let i = 0; i < entries.length; i++) {
-        console.log("startTimeUTC=========",startTimeUTC);
-        console.log("today================", entries[i].created_date);
-        console.log("endTimeUTC===========", endTimeUTC);
-        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        // console.log("startTimeUTC=========",startTimeUTC);
+        // console.log("today================", entries[i].created_date);
+        // console.log("endTimeUTC===========", endTimeUTC);
+        // console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
         if (entries[i].created_date > startTimeUTC && entries[i].created_date < endTimeUTC) {
             allDayArray[allDayArray.length - 1] += 1;
         }
@@ -32,5 +32,6 @@ export function generateAllDayArray(entries: entry[], today: Date) {
             i -= 1;
         }
     }
-    console.log(allDayArray);
+    return allDayArray;
+    // console.log(allDayArray);
 }
