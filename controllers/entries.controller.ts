@@ -2,6 +2,7 @@ import entriesModel from "../models/entries.model";
 import { Request, Response } from "express";
 import { generateOneMonthContributions } from '../utils/generateOneMonthContributions'
 import { getDaysInMonth } from '../utils/getDaysInMonth'
+import { generateAllDayArray } from '../utils/generateAllDayArray'
 
 type Entry = {
   id: number;
@@ -108,6 +109,23 @@ const entriesController = {
       res.status(400).send("Bad request");
     }
   },
+
+  getCurrentStreakByUserId: async function(req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const date: Date = new Date(req.params.date);
+      const entries: Entry[] = await entriesModel.getByUserId(userId);
+      generateAllDayArray(entries, date);
+      const newDate = new Date('2024-03-15T02:29:19.290Z')
+      console.log("date========", date);
+      console.log("newDate=======", newDate);
+      console.log(date < newDate);
+      res.status(200).send(entries);
+    } catch (e){
+      console.log(e);
+      res.status(400).send('Bad request');
+    }
+  }
 }
 
 export default entriesController;
