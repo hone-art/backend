@@ -4,7 +4,7 @@ import commentsController from "../controllers/comments.controller";
 const router = express.Router();
 
 // COMMENTS ROUTES
-router.get("/comments/entries/:entryId", commentsController.getByEntryId);
+router.get("/entries/:entryId", commentsController.getByEntryId);
 router.post("/", commentsController.create);
 router.delete("/:id", commentsController.delete);
 

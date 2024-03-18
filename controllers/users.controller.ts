@@ -38,6 +38,18 @@ const usersController = {
     }
   },
 
+  getById: async function (req: Request, res: Response) {
+    try {
+      const id: number = parseInt(req.params.id);
+      const user = await usersModel.getById(id);
+
+      res.status(200).send(user);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send("Bad request");
+    }
+  },
+
   getByUsername: async function (req: Request, res: Response) {
     try {
       const user_name: string = req.body.user_name;
