@@ -54,7 +54,7 @@ app.get("/autoLogin", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  res.cookie('authToken', 'none', {
+  res.cookie('authToken', '', {
     expires: new Date(Date.now()),
     httpOnly: true,
   })
@@ -66,3 +66,5 @@ app.get("/logout", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port: ${PORT}`);
 });
+
+export default app;
