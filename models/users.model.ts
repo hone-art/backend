@@ -18,6 +18,15 @@ const usersModel = {
     return user;
   },
 
+  getById: async function (id: number) {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return user;
+  },
+
   getByUsername: async function (user_name: string) {
     const user = await prisma.user.findUnique({
       where: {

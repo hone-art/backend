@@ -12,7 +12,6 @@ const commentsController = {
   create: async function (req: Request, res: Response) {
     try {
       const newCommentToInsert = req.body;
-      newCommentToInsert["created_date"] = new Date();
       const newComment = await commentsModel.create(newCommentToInsert);
       res.status(200).send(newComment);
     } catch (e) {
