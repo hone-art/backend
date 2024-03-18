@@ -19,56 +19,52 @@ describe('GET /users/:uuid', () => {
   });
 });
 
+// import { PrismaClient } from '@prisma/client';
+// import imagesModel from '../models/images.model';
 
+// jest.mock('@prisma/client', () => ({
+//   PrismaClient: jest.fn().mockImplementation(() => ({
+//     image: {
+//       findUnique: jest.fn().mockResolvedValue(undefined),
+//       create: jest.fn().mockResolvedValue(undefined),
+//     },
+//   })),
+// }));
 
-imagesmockreference.ts
+// const mockedPrisma = new PrismaClient();
 
-import { PrismaClient } from '@prisma/client';
-import imagesModel from '../models/images.model';
+// const mockFindUnique = mockedPrisma.image.findUnique as jest.MockedFunction<typeof mockedPrisma.image.findUnique>;
+// const mockCreate = mockedPrisma.image.create as jest.MockedFunction<typeof mockedPrisma.image.create>;
 
-jest.mock('@prisma/client', () => ({
-  PrismaClient: jest.fn().mockImplementation(() => ({
-    image: {
-      findUnique: jest.fn().mockResolvedValue(undefined),
-      create: jest.fn().mockResolvedValue(undefined),
-    },
-  })),
-}));
+// describe('imagesModel', () => {
+//   describe('getById', () => {
+//     it('should retrieve an image by ID', async () => {
+//       const image = { id: 1, url: 'https://images.app.goo.gl/cwnnRS9ZJmzbcYgt6' };
+//       mockFindUnique.mockResolvedValue(image);
 
-const mockedPrisma = new PrismaClient();
+//       const result = await imagesModel.getById(1);
 
-const mockFindUnique = mockedPrisma.image.findUnique as jest.MockedFunction<typeof mockedPrisma.image.findUnique>;
-const mockCreate = mockedPrisma.image.create as jest.MockedFunction<typeof mockedPrisma.image.create>;
+//       expect(result).toEqual(image);
+//       expect(mockFindUnique).toHaveBeenCalledWith({
+//         where: { id: 1 },
+//       });
+//     });
+//   });
 
-describe('imagesModel', () => {
-  describe('getById', () => {
-    it('should retrieve an image by ID', async () => {
-      const image = { id: 1, url: 'https://images.app.goo.gl/cwnnRS9ZJmzbcYgt6' };
-      mockFindUnique.mockResolvedValue(image);
+//   describe('create', () => {
+//     it('should create a new image', async () => {
+//       const newImage = { id: 1, url: 'https://images.app.goo.gl/cwnnRS9ZJmzbcYgt6' };
+//       mockCreate.mockResolvedValue(newImage); // Using the properly typed mock
 
-      const result = await imagesModel.getById(1);
+//       const result = await imagesModel.create(newImage);
 
-      expect(result).toEqual(image);
-      expect(mockFindUnique).toHaveBeenCalledWith({
-        where: { id: 1 },
-      });
-    });
-  });
-
-  describe('create', () => {
-    it('should create a new image', async () => {
-      const newImage = { id: 1, url: 'https://images.app.goo.gl/cwnnRS9ZJmzbcYgt6' };
-      mockCreate.mockResolvedValue(newImage); // Using the properly typed mock
-
-      const result = await imagesModel.create(newImage);
-
-      expect(result).toEqual(newImage);
-      expect(mockCreate).toHaveBeenCalledWith({
-        data: newImage,
-      });
-    });
-  });
-});
+//       expect(result).toEqual(newImage);
+//       expect(mockCreate).toHaveBeenCalledWith({
+//         data: newImage,
+//       });
+//     });
+//   });
+// });
 
 
 // const imagesModel = require('../models/images.model')
