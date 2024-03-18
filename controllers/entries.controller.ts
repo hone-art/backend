@@ -111,7 +111,7 @@ const entriesController = {
     }
   },
 
-  getStreakByUserId: async function(req: Request, res: Response) {
+  getStreakByUserId: async function (req: Request, res: Response) {
     try {
       const userId: number = parseInt(req.params.userId);
       const date: Date = new Date(req.params.date);
@@ -125,7 +125,19 @@ const entriesController = {
       // console.log("newDate=======", newDate);
       // console.log(date < newDate);
       res.status(200).send(streaks);
-    } catch (e){
+    } catch (e) {
+      console.log(e);
+      res.status(400).send('Bad request');
+    }
+  },
+
+  getTotalByUserId: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const entries: Entry[] = await entriesModel.getByUserId(userId);
+      const total = String(entries.length)
+      res.status(200).send(total);
+    } catch (e) {
       console.log(e);
       res.status(400).send('Bad request');
     }
