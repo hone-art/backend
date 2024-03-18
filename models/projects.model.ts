@@ -63,6 +63,18 @@ const projectsModel = {
     });
 
     return projects;
+  },
+
+  getByUserIdAndVisibility: async function (userId: number) {
+    const projects = await prisma.project.findMany({
+      where: {
+        user_id: userId,
+        isPublic: true,
+      },
+      orderBy: { "updated_date": "desc" }
+    });
+
+    return projects;
   }
 
 }

@@ -69,17 +69,17 @@ const entriesModel = {
   },
 
   getByUserIdAndDate: async function (userId: number, dateStr: string) {
-    console.log(dateStr);
+    // console.log(dateStr);
     const startTimeLocal = new Date(dateStr);
-    console.log("start time in Local--------------", startTimeLocal);
+    // console.log("start time in Local--------------", startTimeLocal);
 
     const startTimeUTC = new Date(startTimeLocal);
     startTimeUTC.setHours(startTimeLocal.getHours() -9);
-    console.log("start time in UTC==============", startTimeUTC);
+    // console.log("start time in UTC==============", startTimeUTC);
 
     const endTimeUTC = new Date(startTimeUTC);
     endTimeUTC.setDate(startTimeUTC.getDate() + 1);
-    console.log("end time in UTC==============", endTimeUTC);
+    // console.log("end time in UTC==============", endTimeUTC);
 
 
     const entries = await prisma.entry.findMany({
@@ -97,19 +97,19 @@ const entriesModel = {
   },
 
   getByUserIdAndMonth: async function(userId: number, monthStr: string) {
-    console.log(monthStr);
+    // console.log(monthStr);
     const numberOfDays = getDaysInMonth(monthStr);
 
     const startTimeLocal = new Date(monthStr);
-    console.log("start time in Local--------------",startTimeLocal);
+    // console.log("start time in Local--------------",startTimeLocal);
 
     const startTimeUTC = new Date(startTimeLocal);
     startTimeUTC.setHours(startTimeLocal.getHours() -9);
-    console.log("start time in UTC==============", startTimeUTC);
+    // console.log("start time in UTC==============", startTimeUTC);
 
     const endTimeUTC = new Date(startTimeUTC);
     endTimeUTC.setDate(startTimeUTC.getDate() + numberOfDays);
-    console.log("end time in UTC==============", endTimeUTC);
+    // console.log("end time in UTC==============", endTimeUTC);
 
     const entries = await prisma.entry.findMany({
       where: {

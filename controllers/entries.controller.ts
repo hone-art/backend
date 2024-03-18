@@ -2,6 +2,8 @@ import entriesModel from "../models/entries.model";
 import { Request, Response } from "express";
 import { generateOneMonthContributions } from '../utils/generateOneMonthContributions'
 import { getDaysInMonth } from '../utils/getDaysInMonth'
+import { generateAllDaysArray } from '../utils/generateAllDaysArray'
+import { calculateStreaks } from '../utils/calculateStreaks'
 
 type Entry = {
   id: number;
@@ -108,6 +110,38 @@ const entriesController = {
       res.status(400).send("Bad request");
     }
   },
+
+  getStreakByUserId: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const date: Date = new Date(req.params.date);
+      const entries: Entry[] = await entriesModel.getByUserId(userId);
+      const allDaysArray: number[] = generateAllDaysArray(entries, date);
+      const streaks = calculateStreaks(allDaysArray);
+      console.log('current streak=======', streaks.current);
+      console.log('longest streak=======', streaks.longest);
+      // const newDate = new Date('2024-03-15T02:29:19.290Z')
+      // console.log("date========", date);
+      // console.log("newDate=======", newDate);
+      // console.log(date < newDate);
+      res.status(200).send(streaks);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send('Bad request');
+    }
+  },
+
+  getTotalByUserId: async function (req: Request, res: Response) {
+    try {
+      const userId: number = parseInt(req.params.userId);
+      const entries: Entry[] = await entriesModel.getByUserId(userId);
+      const total = String(entries.length)
+      res.status(200).send(total);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send('Bad request');
+    }
+  }
 }
 
 export default entriesController;
