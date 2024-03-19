@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
-app.get("/autoLogin", (req, res) => {
+app.post("/autoLogin", (req, res) => {
   const cookie = req.cookies;
 
   if (!cookie || cookie == null) {
@@ -53,10 +53,12 @@ app.get("/autoLogin", (req, res) => {
 
 });
 
-app.get("/logout", (req, res) => {
-  res.cookie('authToken', 'none', {
+app.post("/logout", (req, res) => {
+  res.cookie('authToken', '', {
     expires: new Date(Date.now()),
     httpOnly: true,
+    secure: true,
+    sameSite: 'none',
   })
   return res.status(200).send("Logged out");
 
