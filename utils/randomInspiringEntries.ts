@@ -42,6 +42,9 @@ export async function getRandomInspiringEntries(limit: number) {
 
     const profilePicture = await imagesModel.getById(user!.img_id!);
     randomEntry["profile_picture"] = profilePicture!.url;
+
+    const entryImage = await imagesModel.getById(randomEntry.img_id);
+    randomEntry["entry_img"] = entryImage!.url;
   }
   if (randomEntries.length <= limit) return randomEntries;
 
