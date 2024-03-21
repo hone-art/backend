@@ -14,5 +14,6 @@ router.get("/users/:userId/:date", entriesController.getByUserIdAndDate);
 router.get("/users/:userId/months/:month", entriesController.getByUserIdAndMonth);
 router.get("/users/:userId/streaks/:date", entriesController.getStreakByUserId);
 router.get("/users/:userId/limit/all", entriesController.getTotalByUserId);
+router.get("/random/:limit", entriesController.getRandomByIsInspiring);
 
 export default router;

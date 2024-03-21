@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  //shadowDatabaseUrl = env("DATABASE_URL")
 }
 
 model Image {
@@ -25,10 +25,11 @@ model User {
   display_name String?
   uuid         String    @unique
   user_name    String    @unique
+  isInspiring  Boolean?  @default(false)
+  Comment      Comment[]
   Entry        Entry[]
   Project      Project[]
   img          Image?    @relation(fields: [img_id], references: [id])
-  Comment      Comment[]
 
   @@map("users")
 }
@@ -56,10 +57,10 @@ model Entry {
   project_id   Int
   user_id      Int
   created_date DateTime  @default(now())
+  Comment      Comment[]
   img          Image?    @relation(fields: [img_id], references: [id])
   project      Project   @relation(fields: [project_id], references: [id])
   user         User      @relation(fields: [user_id], references: [id])
-  Comment      Comment[]
 
   @@map("entries")
 }
@@ -67,10 +68,10 @@ model Entry {
 model Comment {
   id          Int    @id @default(autoincrement())
   description String
-  entry       Entry  @relation(fields: [entry_id], references: [id])
-  user        User   @relation(fields: [user_id], references: [id])
   entry_id    Int
   user_id     Int
+  entry       Entry  @relation(fields: [entry_id], references: [id])
+  user        User   @relation(fields: [user_id], references: [id])
 
   @@map("comments")
 }
