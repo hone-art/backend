@@ -9,7 +9,7 @@ const SECRET_KEY = process.env.JWT_SECRET_KEY;
 interface User {
   user_name: string;
   uuid: string;
-  img_id?: number;
+  img_id: number;
   display_name?: string;
 }
 

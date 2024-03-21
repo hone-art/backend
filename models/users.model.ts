@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 interface User {
   user_name: string,
   uuid: string,
-  img_id?: number,
+  img_id: number,
   display_name?: string;
 }
 
@@ -53,6 +53,16 @@ const usersModel = {
     })
     return updatedUser;
   },
+
+  isInspiring: async function () {
+    const inspiringUsers = await prisma.user.findMany({
+      where: {
+        isInspiring: true,
+      }
+    });
+
+    return inspiringUsers;
+  }
 }
 
 export default usersModel;
