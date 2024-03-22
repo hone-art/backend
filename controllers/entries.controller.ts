@@ -4,6 +4,7 @@ import { generateOneMonthContributions } from '../utils/generateOneMonthContribu
 import { getDaysInMonth } from '../utils/getDaysInMonth'
 import { generateAllDaysArray } from '../utils/generateAllDaysArray'
 import { calculateStreaks } from '../utils/calculateStreaks'
+import { getRandomInspiringEntries } from '../utils/randomInspiringEntries'
 
 type Entry = {
   id: number;
@@ -137,6 +138,17 @@ const entriesController = {
       const entries: Entry[] = await entriesModel.getByUserId(userId);
       const total = String(entries.length)
       res.status(200).send(total);
+    } catch (e) {
+      console.log(e);
+      res.status(400).send('Bad request');
+    }
+  },
+
+  getRandomByIsInspiring: async function (req: Request, res: Response) {
+    try {
+      const limit: number = parseInt(req.params.limit);
+      const entries = await getRandomInspiringEntries(limit);
+      res.status(200).send(entries);
     } catch (e) {
       console.log(e);
       res.status(400).send('Bad request');
