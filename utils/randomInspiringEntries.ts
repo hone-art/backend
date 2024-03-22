@@ -46,7 +46,7 @@ export async function getRandomInspiringEntries(limit: number) {
     const entryImage = await imagesModel.getById(randomEntry.img_id);
     randomEntry["entry_img"] = entryImage!.url;
   }
-  if (randomEntries.length <= limit) return randomEntries;
+  if (randomEntries.length <= limit) return randomEntries.sort(() => 0.5 - Math.random());
 
   const shuffled = randomEntries.sort(() => 0.5 - Math.random());
   let selected = shuffled.slice(0, limit);
