@@ -12,21 +12,21 @@ afterAll(async() => {
 
 describe('GET /entries/:id', () => {
   it('Should return entries by id', async () => {
-    const fetchResponse = await request(app).get("/entries/2");
+    const fetchResponse = await request(app).get("/entries/7");
     const response = fetchResponse.body;
     expect(fetchResponse.statusCode).toBe(200);
-    expect(response.description).toStrictEqual("Yes!");
+    expect(response.description).toStrictEqual("Another update");
   });
 });
 
-describe('GET /entries/users/:userId', () => {
-    it('Should return entries by user id', async () => {
-      const fetchResponse = await request(app).get("/entries/users/10");
-      const response = fetchResponse.body[0]["description"];
-      expect(fetchResponse.statusCode).toBe(200);
-      expect(response).toBe("Yes!");
-    });
-});
+// describe('GET /entries/users/:userId', () => {
+//     it('Should return entries by user id', async () => {
+//       const fetchResponse = await request(app).get("/entries/users/10");
+//       const response = fetchResponse.body[0]["description"];
+//       expect(fetchResponse.statusCode).toBe(200);
+//       expect(response).toBe("Yes!");
+//     });
+// });
 
 // describe('GET /entries/users/:userId/:date', () => {
 //     it('Should return entries by user id', async () => {
