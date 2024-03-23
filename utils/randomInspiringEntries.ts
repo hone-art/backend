@@ -24,10 +24,22 @@ export async function getRandomInspiringEntries(limit: number) {
         if (project.isPublic) {
           const entries = await entriesModel.getByProjectId(project.id);
           const hasImages = entries.filter((entry) => entry.img_id !== null);
+
           allEntries = allEntries.concat(hasImages);
         }
       }
     }
+  }
+
+  for (const entry of allEntries) {
+    const user = await usersModel.getById(entry.user_id);
+    entry["user_name"] = user!.user_name;
+
+    const profilePicture = await imagesModel.getById(user!.img_id!);
+    entry["profile_picture"] = profilePicture!.url;
+
+    const entryImage = await imagesModel.getById(entry.img_id);
+    entry["entry_img"] = entryImage!.url;
   }
 
   const shuffledEntries = shuffleArray(allEntries);
