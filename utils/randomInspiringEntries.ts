@@ -14,41 +14,36 @@ type Entry = {
 
 export async function getRandomInspiringEntries(limit: number) {
   const inspiringUsers = await usersModel.isInspiring();
-  const randomEntries: any[] = [];
+  let allEntries: any[] = [];
 
   for (const user of inspiringUsers) {
     const projects = await projectsModel.getByUserId(user.id);
 
     if (projects.length > 0) {
       for (const project of projects) {
-        const isPicked = Math.floor(Math.random() * 2);
-
-        if (isPicked === 1) {
+        if (project.isPublic) {
           const entries = await entriesModel.getByProjectId(project.id);
-
-          if (entries.length > 0) {
-            const randomIndex = Math.floor(Math.random() * entries.length);
-            const randomEntry = entries[randomIndex];
-            (randomEntry.img_id !== null) ? randomEntries.push(randomEntry) : null;
-          }
+          const hasImages = entries.filter((entry) => entry.img_id !== null);
+          allEntries = allEntries.concat(hasImages);
         }
       }
     }
   }
 
-  for (const randomEntry of randomEntries) {
-    const user = await usersModel.getById(randomEntry.user_id);
-    randomEntry["user_name"] = user!.user_name;
+  const shuffledEntries = shuffleArray(allEntries);
 
-    const profilePicture = await imagesModel.getById(user!.img_id!);
-    randomEntry["profile_picture"] = profilePicture!.url;
+  if (shuffledEntries.length <= limit) return shuffledEntries;
 
-    const entryImage = await imagesModel.getById(randomEntry.img_id);
-    randomEntry["entry_img"] = entryImage!.url;
-  }
-  if (randomEntries.length <= limit) return randomEntries.sort(() => 0.5 - Math.random());
-
-  const shuffled = randomEntries.sort(() => 0.5 - Math.random());
-  let selected = shuffled.slice(0, limit);
+  const selected = shuffledEntries.slice(0, limit);
   return selected;
+}
+
+function shuffleArray(array: any[]) {
+  const result = array.slice(0);
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+
+  return result;
 }
