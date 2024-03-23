@@ -41,6 +41,20 @@ const projectsModel = {
 
   delete: async function (id: number) {
     // Delete all entries with project id
+    const entries = await prisma.entry.findMany({
+      where: {
+        project_id: id
+      }
+    });
+
+    for (const entry of entries) {
+      const deleteComments = await prisma.comment.deleteMany({
+        where: {
+          entry_id: entry.id,
+        }
+      })
+    }
+
     const deleteEntries = await prisma.entry.deleteMany({
       where: {
         project_id: id,
