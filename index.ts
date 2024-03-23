@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   res.send("Hello, World!");
 });
 
-app.get("/autoLogin", (req, res) => {
+app.post("/autoLogin", (req, res) => {
   const cookie = req.cookies;
 
   if (!cookie || cookie == null) {
